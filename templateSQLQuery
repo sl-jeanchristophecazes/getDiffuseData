@@ -1,0 +1,8 @@
+SELECT {0}
+FROM (SELECT * FROM immobc.annonce_revision WHERE dt_maj BETWEEN timestamp '{1}' AND timestamp '{2}') as ar
+INNER JOIN
+(SELECT * FROM predata.annonce WHERE sisl = 1) as predata ON predata.idannonce = ar.idannonce
+INNER JOIN
+(SELECT * FROM immobc.{3}) as at ON (at.idannonce = ar.idannonce AND at._revisiondate_ = ar._revisiondate_)
+INNER JOIN
+(SELECT * FROM immobc.{4}) as ab ON (ab.idannonce = ar.idannonce AND ab._revisiondate_ = ar._revisiondate_)
